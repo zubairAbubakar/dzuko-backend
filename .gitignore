@@ -1,20 +1,37 @@
-# Operating System Files
-*.DS_Store
-Thumbs.db
-*.sw?
-.#*
-*#
-*~
-
-# Build Artifacts
-.gradle/
+HELP.md
+.gradle
 build/
-target/
-bin/
-dependency-reduced-pom.xml
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-# IntelliJ IDEA Files
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
 *.iml
 *.ipr
-*.iws
-*.idea
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
