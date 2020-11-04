@@ -2,6 +2,8 @@ package com.zlab.dzuko.config;
 
 import com.zlab.dzuko.entity.Ad;
 import com.zlab.dzuko.entity.AdCategory;
+import com.zlab.dzuko.entity.Country;
+import com.zlab.dzuko.entity.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -29,27 +31,27 @@ public class DataRestConfig implements RepositoryRestConfigurer {
 
         HttpMethod[] theUnSupportedActions = {HttpMethod.POST, HttpMethod.DELETE,  HttpMethod.PUT};
 
-        //disable HTTP methods for ad: PUT, POST and DELETE
-        config.getExposureConfiguration()
-                .forDomainType(Ad.class)
-                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnSupportedActions))
-                .withAssociationExposure((metdata, httpMethods) -> httpMethods.disable(theUnSupportedActions));
 
-        //disable HTTP methods for ad category: PUT, POST and DELETE
-        config.getExposureConfiguration()
-                .forDomainType(AdCategory.class)
-                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnSupportedActions))
-                .withAssociationExposure((metdata, httpMethods) -> httpMethods.disable(theUnSupportedActions));
+        //disable HTTP methods: PUT, POST and DELETE
+        disableHttpMethods(Ad.class, config, theUnSupportedActions);
+        disableHttpMethods(AdCategory.class, config, theUnSupportedActions);
+        disableHttpMethods(Country.class, config, theUnSupportedActions);
+        disableHttpMethods(State.class, config, theUnSupportedActions);
 
         //call the internal helper methods
         expodedIds(config);
     }
 
+    private void disableHttpMethods(Class theClass, RepositoryRestConfiguration config, HttpMethod[] theUnSupportedActions) {
+        config.getExposureConfiguration()
+                .forDomainType(theClass )
+                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnSupportedActions))
+                .withAssociationExposure((metdata, httpMethods) -> httpMethods.disable(theUnSupportedActions));
+    }
+
     private void expodedIds(RepositoryRestConfiguration config) {
 
         //expose entity ids
-
-
         //get a list of all entity classes from the entity manager
         Set<EntityType<?>> entities = entityManager.getMetamodel().getEntities();
 
